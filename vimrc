@@ -11,6 +11,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/a.vim'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 
@@ -19,7 +20,8 @@ filetype plugin indent on
 syntax on
 set number
 "highlight Comment ctermfg=DarkCyan
-colorscheme elflord
+set background=dark
+colo solarized
 
 set tabstop=2
 set shiftwidth=2
@@ -34,10 +36,11 @@ autocmd FileType * nested :call tagbar#autoopen(0)
 autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " Change function signature color
-highlight TagbarSignature ctermfg=Green
+highlight TagbarSignature ctermfg=Cyan
 
 " Switch windows with F2 instead of C-W C-Wfe
 map <F2> <C-w><C-w>
+imap <F2> <C-w><C-w>
 
 " tagbar options
 let g:tagbar_compact = 1
@@ -63,3 +66,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:EclimCompletionMethod = 'omnifunc'
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+set guifont=Fira\ Mono\ for\ Powerline\ 10 
+
+let g:airline_powerline_fonts = 1
