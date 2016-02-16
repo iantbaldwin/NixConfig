@@ -30,7 +30,7 @@ set backspace=2
 " begin tagbar options
 let g:tagbar_compact = 1
 " Change function signature color
-highlight TagbarSignature ctermfg=Cyan
+highlight TagbarSignature ctermfg=DarkGreen
 " Autoopen Tagbar
 autocmd VimEnter * nested :call tagbar#autoopen(1)
 autocmd FileType * nested :call tagbar#autoopen(0)
