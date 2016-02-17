@@ -12,6 +12,7 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/a.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'rdnetto/YCM-Generator'
 
 call vundle#end()
 
