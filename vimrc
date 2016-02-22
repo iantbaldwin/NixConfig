@@ -13,6 +13,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/a.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'rdnetto/YCM-Generator'
+Plugin 'tpope/vim-markdown'
 
 call vundle#end()
 
@@ -65,3 +66,5 @@ let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 " end YCM options
+"
+let g:markdown_fenced_language = ['c','java']
