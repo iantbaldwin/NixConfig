@@ -33,3 +33,17 @@ alias exit='killall Terminal;'
 ## Commands
 alias ls='ls -Gp'
 export LSCOLORS=gxBxcabaFxdxdxhbhbHgHg
+
+
+##################
+# Prompt Styling #
+##################
+# \d - Current date
+# \t - Current time
+# \h - Hostname
+# \# - Command number
+# \u - Username
+# \W - Current working directory
+# \w - Absolute path of working directory
+
+export PS1="\h( \W ) -> "
