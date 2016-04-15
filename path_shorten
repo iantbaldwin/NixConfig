@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -cp /usr/local/path_shorten Shorten

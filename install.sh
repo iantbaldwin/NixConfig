@@ -13,3 +13,8 @@ ln -sF $curDir/ftplugin/asm.vim ~/.vim/ftplugin/asm.vim
 
 # Copy YCM_CONF
 ln -sF $curDir/ycm_extra_conf.py ~/.vim/.ycm_extra_conf.py
+
+# Copy path_shorten
+mkdir -p /usr/local/path_shorten
+javac $curDir/Shorten.java -d /usr/local/path_shorten
+ln -sF $curDir/path_shorten /usr/local/bin
