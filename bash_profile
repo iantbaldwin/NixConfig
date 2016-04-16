@@ -46,4 +46,4 @@ export LSCOLORS=gxBxcabaFxdxdxhbhbHgHg
 # \W - Current working directory
 # \w - Absolute path of working directory
 
-export PS1="\e[34m\h[ \e[0m\W\e[34m ]:\e[0m "
+export PS1="\e[32m\h[ \e[0m$(path_shorten)\e[32m ]:\e[0m "

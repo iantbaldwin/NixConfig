@@ -1,20 +1,34 @@
 #!/bin/bash
-curDir=$(pwd)
-#echo $curDir
+curDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+usrshell=$(basename $SHELL)
 
-# Install vimrc and bash_profile
-ln -sF $curDir/vimrc ~/.vimrc
-ln -sF $curDir/bash_profile ~/.bash_profile
+# Link vimrc
+ln -sF $curDir/vimrc $HOME/.vimrc
 
-# Install VIM filetype plugins
-ln -sF $curDir/ftplugin/c.vim ~/.vim/ftplugin/c.vim
-ln -sF $curDir/ftplugin/java.vim ~/.vim/ftplugin/java.vim
-ln -sF $curDir/ftplugin/asm.vim ~/.vim/ftplugin/asm.vim
+# Create vim directories if needed
+mkdir -p $HOME/.vim
+mkdir -p $HOME/.vim/ftplugin
 
-# Copy YCM_CONF
-ln -sF $curDir/ycm_extra_conf.py ~/.vim/.ycm_extra_conf.py
+# Link VIM filetype plugins
+ln -sF $curDir/ftplugin/c.vim $HOME/.vim/ftplugin/c.vim
+ln -sF $curDir/ftplugin/java.vim $HOME/.vim/ftplugin/java.vim
+ln -sF $curDir/ftplugin/asm.vim $HOME/.vim/ftplugin/asm.vim
 
-# Copy path_shorten
+# Link YCM_CONF
+ln -sF $curDir/ycm_extra_conf.py $HOME/.vim/.ycm_extra_conf.py
+
+# Insatll path_shorten
 mkdir -p /usr/local/path_shorten
-javac $curDir/Shorten.java -d /usr/local/path_shorten
+echo "#!/bin/bash\njava -cp $curDir Shorten" > $curDir/path_shorten
+chmod +x $curDir/path_shorten
 ln -sF $curDir/path_shorten /usr/local/bin
+javac $curDir/Shorten.java
+
+# Link shell profile
+if [ "$usrshell" == "fish" ]; then
+	mkdir -p $HOME/.config
+	ln -sF $curDir/config.fish $HOME/.config/fish/config.fish
+elif [ "$usrshell" == "bash" ]; then
+	echo Shell: bash
+	ln -sF $curDir/bash_profile $HOME/.bash_profile
+fi
