@@ -3,6 +3,10 @@
 curDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 usrshell=$(basename $SHELL)
 
+homeColor="\"[32m\""
+remoteColor="\"[31m\""
+colorReset="\"[0m\""
+
 # Link vimrc
 ln -sF $curDir/vimrc $HOME/.vimrc
 
@@ -25,7 +29,11 @@ if [ "$usrshell" == "fish" ]; then
 	cat fishconfig >> config.fish
 	ln -sF $curDir/config.fish $HOME/.config/fish/config.fish
 elif [ "$usrshell" == "bash" ]; then
-	printf "#!/bin/bash\nNIXCONFIG=$curDir \n" > bash_profile
+	printf "#!/bin/bash\n
+homeColor=$homeColor\n
+remoteColor=$remoteColor\n
+RESET=$colorReset\n
+NIXCONFIG=$curDir \n" > bash_profile
 	cat bashconfig >> bash_profile
 	ncsu=$(uname -a | grep -c ncsu)
 	if [ "$ncsu" == "1" ]; then

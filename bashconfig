@@ -54,6 +54,11 @@ if [[ "$usrShell" == "bash" ]]; then
 	PROMPT_COMMAND=prompter
 
 	function prompter() {
-		export PS1="\e[32m\h[ \e[0m$(python $NIXCONFIG/dynamic_path.py)\e[32m ]:\e[0m "
+		if [ "$SSH_CLIENT" == "" ]; then
+			PCOLOR=$homeColor
+		else
+			PCOLOR=$remoteColor
+		fi
+		export PS1="\e$PCOLOR\h[ \e$RESET$(python $NIXCONFIG/dynamic_path.py)\e$PCOLOR ]:\e$RESET "
 	}
 fi
