@@ -40,7 +40,7 @@ set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
 	ln -sF $curDir/Compiled/config.fish $HOME/.config/fish/config.fish
 elif [ "$usrshell" == "bash" ]; then
 	printf "#!/bin/bash\n
-homeColor=$localColor\n
+localColor=$localColor\n
 remoteColor=$remoteColor\n
 NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
 	cat $curDir/Config/Bash/bash.config >> $curDir/Compiled/bash_profile
