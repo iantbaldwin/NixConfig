@@ -1,5 +1,3 @@
 .DS_Store
-config.fish
-bash_profile
 *.xmi
-*.class
+/Compiled/
