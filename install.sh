@@ -25,6 +25,8 @@ if [ "$usrshell" == "fish" ]; then
 	cat fishconfig >> config.fish
 	ln -sF $curDir/config.fish $HOME/.config/fish/config.fish
 elif [ "$usrshell" == "bash" ]; then
-	echo Shell: bash
+	printf "#!/bin/bash\nNIXCONFIG=$curDir \n" > bash_profile
+	cat bashconfig >> bash_profile
 	ln -sF $curDir/bash_profile $HOME/.bash_profile
+	source $HOME/.bash_profile
 fi

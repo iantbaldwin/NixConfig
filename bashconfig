@@ -1,5 +1,3 @@
-#!/bin/bash
-
 usrShell=$(basename $SHELL)
 usrOS=$(uname)
 
@@ -53,5 +51,9 @@ if [[ "$usrShell" == "bash" ]]; then
 	# \u - Username
 	# \W - Current working directory
 	# \w - Absolute path of working directory
-	export PS1="\e[32m\h[ \e[0m$(path_shorten)\e[32m ]:\e[0m "
+	PROMPT_COMMAND=prompter
+
+	function prompter() {
+		export PS1="\e[32m\h[ \e[0m$(python $NIXCONFIG/dynamic_path.py)\e[32m ]:\e[0m "
+	}
 fi
