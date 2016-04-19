@@ -1,4 +1,5 @@
 #!/bin/bash
+
 curDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 usrshell=$(basename $SHELL)
 
