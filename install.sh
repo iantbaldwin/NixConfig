@@ -17,16 +17,11 @@ ln -sF $curDir/ftplugin/asm.vim $HOME/.vim/ftplugin/asm.vim
 # Link YCM_CONF
 ln -sF $curDir/ycm_extra_conf.py $HOME/.vim/.ycm_extra_conf.py
 
-# Insatll path_shorten
-mkdir -p /usr/local/path_shorten
-echo "#!/bin/bash\njava -cp $curDir Shorten" > $curDir/path_shorten
-chmod +x $curDir/path_shorten
-ln -sF $curDir/path_shorten /usr/local/bin
-javac $curDir/Shorten.java
-
 # Link shell profile
 if [ "$usrshell" == "fish" ]; then
 	mkdir -p $HOME/.config
+	echo "set INSTPATH $curDir\n" > config.fish
+	cat fishconfig >> config.fish
 	ln -sF $curDir/config.fish $HOME/.config/fish/config.fish
 elif [ "$usrshell" == "bash" ]; then
 	echo Shell: bash

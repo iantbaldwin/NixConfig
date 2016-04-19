@@ -4,11 +4,12 @@ alias exit='killall Terminal;'
 
 set HOST (hostname | awk -F. '{ print $1 }')
 
+
 function fish_prompt
 	set_color green
 	printf $HOST\[" " 
 	set_color normal
-	path_shorten
+	python $PATH/dynamic_path.py
 	set_color green
 	printf " "\]": "
 	set_color normal
