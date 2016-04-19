@@ -27,6 +27,10 @@ if [ "$usrshell" == "fish" ]; then
 elif [ "$usrshell" == "bash" ]; then
 	printf "#!/bin/bash\nNIXCONFIG=$curDir \n" > bash_profile
 	cat bashconfig >> bash_profile
-	ln -sF $curDir/bash_profile $HOME/.bash_profile
-	source $HOME/.bash_profile
+	ncsu=$(uname -a | grep -c ncsu)
+	if [ "$ncsu" == "1" ]; then
+		ln -sF $curDir/bash_profile $HOME/.mybashrc
+	else
+		ln -sF $curDir/bash_profile $HOME/.bash_profile
+	fi
 fi
