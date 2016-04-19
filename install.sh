@@ -11,6 +11,8 @@ elif [ "$usrshell" == "fish" ]; then
 	remoteColor="red"
 fi
 
+rm -rf $HOME/.vimrc $HOME/.vim/ftplugin/* $HOME/.vim/.ycm_extra_conf.py
+
 # Link vimrc
 ln -sF $curDir/Config/Vim/vimrc $HOME/.vimrc
 
@@ -29,8 +31,8 @@ ln -sF $curDir/Config/Vim/ycm_extra_conf.py $HOME/.vim/.ycm_extra_conf.py
 # Link shell profile
 mkdir -p $curDir/Compiled
 if [ "$usrshell" == "fish" ]; then
-	mkdir -p $HOME/.config
-	printf "#!/$(which fish)\n
+	rm -rf $HOME/.config/fish/config.fish
+	printf "#!$(which fish)\n
 set remoteColor $remoteColor \n
 set localColor $localColor \n
 set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
@@ -44,8 +46,10 @@ NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
 	cat $curDir/Config/Bash/bash.config >> $curDir/Compiled/bash_profile
 	ncsu=$(uname -a | grep -c ncsu)
 	if [ "$ncsu" == "1" ]; then
+		rm -rf $HOME/.mybashrc
 		ln -sF $curDir/Compiled/bash_profile $HOME/.mybashrc
 	else
+		rm -rf $HOME/.bash_profile
 		ln -sF $curDir/Compiled/bash_profile $HOME/.bash_profile
 	fi
 fi
