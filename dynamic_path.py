@@ -13,9 +13,11 @@ Prints an abbreviated version of PWD
 Author:     Ian Baldwin
 Version:    1.0
 Date:       4/19/2016
-Changes
-------
-    Original version
+
+Changes:
+--------
+Original version
+
 """
 import os
 import string
