@@ -10,7 +10,7 @@ Prints an abbreviated version of PWD
     - If the user is a in a directory within their home, then
        the path of their home is abbreviated to '~'.
 
-Author:     Ian Baldwin
+Author:     Ian Baldwin (iantbaldwin@elektrikfish.com)
 Version:    1.0
 Date:       4/19/2016
 

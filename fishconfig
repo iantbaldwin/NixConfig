@@ -9,7 +9,7 @@ function fish_prompt
 	set_color green
 	printf $HOST\[" " 
 	set_color normal
-	python $PATH/dynamic_path.py
+	python $INSTPATH/dynamic_path.py
 	set_color green
 	printf " "\]": "
 	set_color normal
