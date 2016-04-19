@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 """
 Prints an abbreviated version of PWD

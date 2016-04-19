@@ -20,7 +20,7 @@ ln -sF $curDir/ycm_extra_conf.py $HOME/.vim/.ycm_extra_conf.py
 # Link shell profile
 if [ "$usrshell" == "fish" ]; then
 	mkdir -p $HOME/.config
-	echo "set INSTPATH $curDir\n" > config.fish
+	printf "set INSTPATH $curDir \n" > config.fish
 	cat fishconfig >> config.fish
 	ln -sF $curDir/config.fish $HOME/.config/fish/config.fish
 elif [ "$usrshell" == "bash" ]; then
