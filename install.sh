@@ -53,3 +53,10 @@ NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
 		ln -sF $curDir/Compiled/bash_profile $HOME/.bash_profile
 	fi
 fi
+
+# Link the cronjob
+#if [ "$(uname -s)" == "Darwin" ]; then
+#	rm -rf $HOME/.brewupdate
+#	ln -sF $curDir/Config/Cron/brew.cron $HOME/.brewupdate
+#	crontab $HOME/.brewupdate
+#fi
