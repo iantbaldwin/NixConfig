@@ -20,12 +20,14 @@ Original version
 """
 import subprocess
 import sys
+import os
 
 def runCommand( command ):
     process = subprocess.Popen( command, shell=True, stdout=subprocess.PIPE )
     return process.stdout.read().replace( "\n", "" )
 
-#updates = runCommand( "brew outdated | wc | awk '{ print $1 }'" )
+home = os.environ[ 'HOME' ]
+updates = runCommand( "cat " + home + "/.brewstatus | wc | awk '{ print $1 }'" )
 processes = runCommand( "ps aux | wc | awk '{ print $1-6}'" )
 date = runCommand( "date" )
 load = runCommand( "sysctl -n vm.loadavg | awk '{ print $2, $3, $4 }'" ).replace( " ", ", " )
