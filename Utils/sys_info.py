@@ -44,7 +44,6 @@ wMem = float( runCommand( "memory_pressure | grep 'Pages wired down' | awk '{ pr
 cMem = float( runCommand( "memory_pressure | grep 'Pages used by compressor:' | awk '{ print $5*4096/1024^3 }'" ) )
 tMem = float( runCommand( "sysctl -a | grep memmap.Conventional | awk '{ print $2/1024^3 }'" ) )
 uptime = re.split( r', [\d] user', re.split( r'^.......up[\s\s]', runCommand( "uptime" ) )[ 1 ] )[ 0 ].lstrip()
-print uptime
 if uptime.find( ":" ) != -1:
     uptime = uptime.replace( ":", "h" )
     uptime += "m"
