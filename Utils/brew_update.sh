@@ -1,2 +1,2 @@
 brew update
-brew outdated > ~/.brewoutdated
+brew outdated >| ~/.brewoutdated
