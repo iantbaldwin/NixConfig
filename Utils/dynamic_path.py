@@ -47,4 +47,4 @@ for i,c in enumerate( currentDirectory ):
                 i = i + 1
             break
     elif ( c == '~' ):
-        sys.stdout.write( c )
+       sys.stdout.write( c )

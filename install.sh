@@ -23,7 +23,8 @@ mkdir -p $HOME/.vim/ftplugin
 # Link VIM filetype plugins
 ln -sF $curDir/Config/Vim/ftplugin/c.vim $HOME/.vim/ftplugin/c.vim
 ln -sF $curDir/Config/Vim/ftplugin/java.vim $HOME/.vim/ftplugin/java.vim
-ln -sF $curDir/Config/Vimftplugin/asm.vim $HOME/.vim/ftplugin/asm.vim
+ln -sF $curDir/Config/Vim/ftplugin/asm.vim $HOME/.vim/ftplugin/asm.vim
+ln -sF $curDir/Config/Vim/ftplugin/rb.vim $HOME/.vim/ftplugin/rb.vim
 
 # Link YCM_CONF
 ln -sF $curDir/Config/Vim/ycm_extra_conf.py $HOME/.vim/.ycm_extra_conf.py
@@ -55,8 +56,9 @@ NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
 fi
 
 # Link the cronjob
-#if [ "$(uname -s)" == "Darwin" ]; then
-#	rm -rf $HOME/.brewupdate
-#	ln -sF $curDir/Config/Cron/brew.cron $HOME/.brewupdate
-#	crontab $HOME/.brewupdate
-#fi
+if [ "$(uname -s)" == "Darwin" ]; then
+	rm -rf $HOME/.brewupdate
+	echo "*/30	*	*	*	*	sh $curDir/Utils/brew_update.sh" > $curDir/Compiled/brewupdate
+	ln -sF $curDir/Compiled/brewupdate $HOME/.brewupdate
+	crontab $HOME/.brewupdate
+fi
