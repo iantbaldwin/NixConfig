@@ -1,9 +1,19 @@
+
 function usage
-	printf "usage: tunnel <option>\nValid options are:\n\topen - Open the ssh tunnel to \$SOCKS_HOST and set proxy information.\n\tclose - Close the ssh tunnel to \$SOCKS_HOST and remove proxy information.\n\tstatus - Get the status the ssh tunnel, including it's pid, and the values of \$SOCKS_HOST and \$SOCKS_PORT.\n"
+	set PROG_NAME "tunnel - Open an SSH tunnel"
+	set USAGE     "usage: tunnel <option>"
+	set OPEN_OPT  "* open   - Open the SSH tunnel to \$SOCKS_HOST and set the proxy information system wide."
+	set CLOSE_OPT "* close  - Close the SSH tunnel to \$SOCKS_HOST and remove the system-wide proxy information."
+	set STAT_OPT  "* status - Get the status of the SSH tunnel, including the value of \$SOCKS_HOST and \$SOCKS_PORT as well as the PID of the SSH session."
+	printf "%s\n\n%s\n%s\nOptions:\n  %s\n  %s\n  %s\n  %s" $argv $PROG_NAME $USAGE $OPEN_OPT $CLOSE_OPT $STAT_OPT
 end
 
 # Activate an SSH tunnel
 function tunnel
+	if test "$argv" -eq ""
+		usage "No option specified. Please specify an option below."
+		return 1
+end
 	switch $argv
 		# Open the tunnel connection 
 		case open
@@ -38,9 +48,10 @@ function tunnel
 				echo Socks Host: $SOCKS_HOST
 				echo Socks Port: $SOCKS_PORT
 				echo Tunnel Pid: $TUNNEL_PID
-		end
+			end
 		# Print the usage
 		case '*'
-			usage
+			usage "Invalid option: $argv"
+			return 1
 	end
 end
