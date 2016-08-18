@@ -17,13 +17,12 @@ end
 	switch $argv
 		# Open the tunnel connection 
 		case open
-			if test (ps -ef | grep "ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST" | grep -cv grep) -eq "1"
+			if test (ps -ef | grep "ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST -p $SSH_PORT" | grep -cv grep) -eq "1"
 				echo Tunnel is already open. Refusing to open a new tunnel.
 				return 1
 			else
-				ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST > ~/.tunnel.log ^ ~/.tunnel.log &
-				sleep 2
-				export TUNNEL_PID=(ps -ef | grep "ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST" | grep -v grep | awk '{ print $2 }')
+				ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST -p $SSH_PORT
+				sleep 1
 				export http_proxy=socks5://127.0.0.1:$SOCKS_PORT
 				export https_proxy=$http_proxy
 				printf "Host *\n\tProxyCommand=nc -X 5 -x 127.0.0.1:$SOCKS_PORT %%h %%p" >> ~/.ssh/config 
@@ -32,6 +31,7 @@ end
 			end
 		# Close the tunnel connection
 		case close
+				set TUNNEL_PID (ps -ef | grep "ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST -p $SSH_PORT" | grep -v grep | awk '{ print $2 }')
 			kill $TUNNEL_PID
 			sudo networksetup -setsocksfirewallproxystate Wi-Fi off
 			export TUNNEL_PID=""
@@ -41,14 +41,16 @@ end
 			echo Tunnel is now closed.
 		# Get the status of the tunnel
 		case status
+				set TUNNEL_PID (ps -ef | grep "ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST -p $SSH_PORT" | grep -v grep | awk '{ print $2 }')
 			if test (echo $TUNNEL_PID) -eq ""
 				echo Tunnel is currently down.
 			else
 				echo Tunnel is up.
-				echo Socks Host: $SOCKS_HOST
-				echo Socks Port: $SOCKS_PORT
 				echo Tunnel Pid: $TUNNEL_PID
 			end
+			echo Socks Host: $SOCKS_HOST
+			echo Socks Port: $SOCKS_PORT
+			echo   SSH Port: $SSH_PORT
 		# Print the usage
 		case '*'
 			usage "Invalid option: $argv"
