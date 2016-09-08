@@ -22,7 +22,6 @@ end
 				return 1
 			else
 				ssh -D $SOCKS_PORT -fCqN $SOCKS_HOST -p $SSH_PORT
-				sleep 1
 				export http_proxy=socks5://127.0.0.1:$SOCKS_PORT
 				export https_proxy=$http_proxy
 				printf "Host *\n\tProxyCommand=nc -X 5 -x 127.0.0.1:$SOCKS_PORT %%h %%p" >> ~/.ssh/config 
