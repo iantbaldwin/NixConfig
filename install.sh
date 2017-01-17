@@ -9,6 +9,7 @@ if [ "$usrshell" == "bash" ]; then
 elif [ "$usrshell" == "fish" ]; then
 	localColor="green"
 	remoteColor="red"
+	diffUserColor="yellow"
 fi
 
 rm -rf $HOME/.vimrc $HOME/.vim/ftplugin/* $HOME/.vim/.ycm_extra_conf.py
@@ -55,10 +56,53 @@ NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
 	fi
 fi
 
-# Link the cronjob
+# Install Mac OS Software
 if [ "$(uname -s)" == "Darwin" ]; then
+	echo Installing for macOS
+	# Install Brew
+	if command -v brew >/dev/null 2>&1; then
+		echo "Brew already installed. Skipping..."
+	else
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	fi
 	rm -rf $HOME/.brewupdate
 	echo "*/30	*	*	*	*	sh $curDir/Utils/brew_update.sh" > $curDir/Compiled/brewupdate
 	ln -sF $curDir/Compiled/brewupdate $HOME/.brewupdate
 	crontab $HOME/.brewupdate
+
+	# Install Software Tools
+	if command -v fish >/dev/null 2>&1; then
+		echo "Software tools already installed. Skipping..."
+	else
+		brew intall fish ctags cmake vim
+	fi
+
+	# Setup vim
+	if [ -e $HOME/.vim/bundle/Vundle.vim ]; then
+		echo "Vim already setup. Skipping..."
+	else
+		git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+		vim +PluginInstall +qall
+		python $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer
+	fi
+
+	# Install Docker
+	if command -v docker >/dev/null 2>&1; then
+		echo "Docker is already installed. Skipping..."
+	else
+		open https://download.docker.com/mac/stable/Docker.dmg
+		read -p "Press any key to continue" ans
+	fi
+
+	if command -v gcc_d >/dev/null 2>&1; then
+		echo "C environment already setup. Skippinng..."
+	else
+		docker pull iantbaldwin/gcc-val:latest
+		ln -sF $curDir/Utils/gcc_d.sh /usr/local/bin/gcc_d
+		chmod +x /usr/local/bin/gcc_d
+		ln -sF $curDir/Utils/valgrind_d.sh /usr/local/bin/valgrind_d
+		chmod +x /usr/local/bin/valgrind_d
+	fi
+
+
 fi
