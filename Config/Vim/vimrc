@@ -9,8 +9,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
+Plugin 'itchyny/lightline.vim'
+Plugin 'edkolev/tmuxline.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-markdown'
@@ -58,10 +60,16 @@ let g:syntastic_loc_list_height = 0
 " end Syntastic options
 
 " begin vim-airline options
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline#extensions#whitespace#mixed_indent_algo = 1
 " end vim-airline options
+"
+" begin ligthline options
+let g:lightline = {
+	\'colorscheme': 'solarized',
+	\ }
+" end lightline options
 
 " begin YCM options
 let g:EclimCompletionMethod = 'omnifunc'
