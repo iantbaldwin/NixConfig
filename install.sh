@@ -7,7 +7,7 @@ if [ "$usrshell" == "bash" ]; then
 	localColor="\"[32m\""
 	remoteColor="\"[31m\""
 elif [ "$usrshell" == "fish" ]; then
-	localColor="green"
+	localColor="cyan"
 	remoteColor="red"
 	diffUserColor="yellow"
 fi
@@ -40,6 +40,9 @@ set localColor $localColor \n
 set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
 	cat $curDir/Config/Fish/fish.config >> $curDir/Compiled/config.fish
 	ln -sF $curDir/Compiled/config.fish $HOME/.config/fish/config.fish
+	cat $curDir/Config/Tmux/Tmux.conf > $curDir/Compiled/tmux.conf
+	echo "source $curDir/tmuxline_solarized" >> $curDir/Compiled/tmux.conf
+	ln -sF $curDir/Compiled/tmux.conf ~/.tmux.conf
 elif [ "$usrshell" == "bash" ]; then
 	printf "#!/bin/bash\n
 localColor=$localColor\n
@@ -74,7 +77,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	if command -v fish >/dev/null 2>&1; then
 		echo "Software tools already installed. Skipping..."
 	else
-		brew intall fish ctags cmake vim
+		brew intall fish ctags cmake vim fish
 	fi
 
 	# Setup vim
