@@ -8,8 +8,7 @@ if [ "$usrshell" == "bash" ]; then
 	remoteColor="\"[31m\""
 elif [ "$usrshell" == "fish" ]; then
 	localColor="cyan"
-	remoteColor="red"
-	diffUserColor="yellow"
+	remoteColor="yellow"
 fi
 
 rm -rf $HOME/.vimrc $HOME/.vim/ftplugin/* $HOME/.vim/.ycm_extra_conf.py
