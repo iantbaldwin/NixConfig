@@ -9,8 +9,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/syntastic'
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
 Plugin 'itchyny/lightline.vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'vim-scripts/a.vim'
@@ -18,6 +16,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-markdown'
 Plugin 'dag/vim-fish'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'godlygeek/csapprox'
 
 call vundle#end()
 
@@ -28,10 +27,14 @@ filetype plugin indent on
 syntax on
 set number
 set background=dark
-colo solarized
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termcolors=16
+colorscheme solarized
 set tabstop=2
 set shiftwidth=2
 set backspace=2
+set mouse=a
 
 " begin tagbar options
 let g:tagbar_compact = 1
@@ -68,8 +71,10 @@ let g:syntastic_loc_list_height = 0
 "
 " begin ligthline options
 let g:lightline = {
-	\'colorscheme': 'solarized',
-	\ }
+      \ 'colorscheme': 'solarized',
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': ' '}
+      \ }
 " end lightline options
 
 " begin YCM options

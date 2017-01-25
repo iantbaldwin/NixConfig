@@ -76,7 +76,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	if command -v fish >/dev/null 2>&1; then
 		echo "Software tools already installed. Skipping..."
 	else
-		brew intall fish ctags cmake vim fish
+		brew intsall fish ctags cmake vim fish reattach-to-user-namespace
 	fi
 
 	# Setup vim
