@@ -16,10 +16,8 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-markdown'
 Plugin 'dag/vim-fish'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'godlygeek/csapprox'
 
 call vundle#end()
-
 
 filetype plugin indent on
 

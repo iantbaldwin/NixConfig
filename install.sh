@@ -73,11 +73,14 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	crontab $HOME/.brewupdate
 
 	# Install Software Tools
-	if command -v fish >/dev/null 2>&1; then
-		echo "Software tools already installed. Skipping..."
-	else
-		brew intsall fish ctags cmake vim fish reattach-to-user-namespace
-	fi
+	software="fish ctags cmake vim tmux reattach-to-user-namespace cloc docker docker-completion"
+	for tool in $software; do
+		if command -v $tool >/dev/null 2>&1; then
+			echo "$tool already installed. Skipping..."
+		else
+			brew install $tool
+		fi
+	done
 
 	# Setup vim
 	if [ -e $HOME/.vim/bundle/Vundle.vim ]; then
@@ -88,13 +91,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
 		python $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer
 	fi
 
-	# Install Docker
-	if command -v docker >/dev/null 2>&1; then
-		echo "Docker is already installed. Skipping..."
-	else
-		open https://download.docker.com/mac/stable/Docker.dmg
-		read -p "Press any key to continue" ans
-	fi
 
 	if command -v gcc_d >/dev/null 2>&1; then
 		echo "C environment already setup. Skippinng..."
