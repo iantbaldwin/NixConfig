@@ -28,15 +28,15 @@ set -e
 # Weather data reference: http://openweathermap.org/weather-conditions
 weather_icon() {
   case $1 in
-    500) echo 🌦
-      ;;
+    500) echo ☔︎
+     ;;
     800) echo ☀︎
       ;;
-    801) echo 🌤
+    801) echo ☀︎
       ;;
-    803) echo ⛅️
+    803) echo ☁︎
       ;;
-    804) echo ☁️
+    804) echo ☁︎
       ;;
     *) echo "$1"
   esac
@@ -54,6 +54,6 @@ while true; do
 	TEMP="$(echo "$WEATHER" | jq .main.temp | cut -d . -f 1)°F"
 	ICON=$(weather_icon "$CATEGORY")
 
-	printf "  $ICON $TEMP" > ~/.cache/weather_status
+	printf "  $TEMP $ICON" > ~/.cache/weather_status
 	sleep 600
 done

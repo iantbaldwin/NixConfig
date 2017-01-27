@@ -4,11 +4,11 @@ while true; do
 		old_value=$(cat ~/.cache/pub_ip)
 		if [[ $value != $old_value ]]; then
 			echo $value > ~/.cache/pub_ip
-			tmux refresh-client -S
+			tmux refresh-client -S > /dev/null 2>&1
 		fi
 	else
 		echo "No Internet" > ~/.cache/pub_ip
-		tmux refresh-client -S
+		tmux refresh-client -S > /dev/null 2>&1
 	fi
 	sleep 10
 done

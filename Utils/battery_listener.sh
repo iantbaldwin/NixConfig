@@ -17,10 +17,10 @@ if [[ $(pmset -g batt | grep -c 'InternalBattery') == 1 ]]; then
 		if [[ $value == "" ]]; then
 			echo "" > ~/.cache/battery_status
 		else
-			echo "  [$value%]$charge_symbol" > ~/.cache/battery_status
+			echo " B: $value%$charge_symbol" > ~/.cache/battery_status
 		fi
 		if [[ $value != $old_value || $charging != $old_charge ]]; then
-			tmux refresh-client -S
+			tmux refresh-client -S > /dev/null 2>&1
 		fi
 		sleep 3
 	done

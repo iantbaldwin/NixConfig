@@ -74,7 +74,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	crontab $HOME/.brewupdate
 
 	# Install Software Tools
-	software="fish ctags cmake vim tmux reattach-to-user-namespace cloc docker docker-completion jq"
+	software="fish ctags cmake vim 'tmux --with-utf8proc' reattach-to-user-namespace cloc docker docker-completion jq"
 	for tool in $software; do
 		if brew list $tool >/dev/null 2>&1; then
 			echo "$tool already installed. Skipping..."
