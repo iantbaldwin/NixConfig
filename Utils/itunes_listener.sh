@@ -1,7 +1,7 @@
 #! /bin/bash
 #set -g status-left "#[fg=colour7,bg=colour6] #S #[fg=colour6,bg=colour0,nobold,nounderscore,noitalics]"
 while true; do
-	if ps -ef | grep -c '[/]Applications/iTunes.app/Contents/MacOS/iTunes' > /dev/null; then
+	if pgrep iTunes > /dev/null; then
 		old_track=$(cat ~/.cache/itunes_track)
 		track=$(osascript -e 'tell application "iTunes" to if player state is playing then name of current track')
 		artist=$(osascript -e 'tell application "iTunes" to if player state is playing then artist of current track')

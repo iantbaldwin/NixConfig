@@ -74,8 +74,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	crontab $HOME/.brewupdate
 
 	# Install Software Tools
-	software="fish ctags cmake vim 'tmux --with-utf8proc' reattach-to-user-namespace cloc docker docker-completion jq"
-	for tool in $software; do
+	for tool in fish ctags cmake vim "tmux --with-utf8proc" reattach-to-user-namespace cloc docker docker-completion jq; do
 		if brew list $tool >/dev/null 2>&1; then
 			echo "$tool already installed. Skipping..."
 		else
@@ -103,5 +102,12 @@ if [ "$(uname -s)" == "Darwin" ]; then
 		chmod +x /usr/local/bin/valgrind_d
 	fi
 
-
+	if command -v run_listeners > /dev/null 2>&1; then
+		echo "Listener control already setup. Skipping..."
+	else
+		ln -sF $curDir/Utils/run_listeners.sh /usr/local/bin/run_listeners
+		chmod +x /usr/local/bin/run_listeners
+		ln -sF $curDir/Utils/kill_listeners.sh /usr/local/bin/kill_listeners
+		chmod +x /usr/local/bin/kill_listeners
+	fi
 fi
