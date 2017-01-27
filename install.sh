@@ -68,7 +68,10 @@ if [ "$(uname -s)" == "Darwin" ]; then
 		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	fi
 	rm -rf $HOME/.brewupdate
+	mkdir -p $HOME/.cache
 	echo "*/30	*	*	*	*	sh $curDir/Utils/brew_update.sh" > $curDir/Compiled/brewupdate
+	echo "*/2   * * * * dig +short myip.opendns.com @208.67.222.222 > ~/.cache/pub_ip" >> $curDir/Compiled/brewupdate
+	echo "*/2   * * * * pmset -g batt | grep -o '[0-9]\{1,3\}%' > ~/.cache/battery_status" >> $curDir/Compiled/brewupdate
 	ln -sF $curDir/Compiled/brewupdate $HOME/.brewupdate
 	crontab $HOME/.brewupdate
 
