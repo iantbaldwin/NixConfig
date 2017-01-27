@@ -70,15 +70,13 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	rm -rf $HOME/.brewupdate
 	mkdir -p $HOME/.cache
 	echo "*/30	*	*	*	*	sh $curDir/Utils/brew_update.sh" > $curDir/Compiled/brewupdate
-	echo "*/2   * * * * dig +short myip.opendns.com @208.67.222.222 > ~/.cache/pub_ip" >> $curDir/Compiled/brewupdate
-	echo "*/2   * * * * pmset -g batt | grep -o '[0-9]\{1,3\}%' > ~/.cache/battery_status" >> $curDir/Compiled/brewupdate
 	ln -sF $curDir/Compiled/brewupdate $HOME/.brewupdate
 	crontab $HOME/.brewupdate
 
 	# Install Software Tools
-	software="fish ctags cmake vim tmux reattach-to-user-namespace cloc docker docker-completion"
+	software="fish ctags cmake vim tmux reattach-to-user-namespace cloc docker docker-completion jq"
 	for tool in $software; do
-		if command -v $tool >/dev/null 2>&1; then
+		if brew list $tool >/dev/null 2>&1; then
 			echo "$tool already installed. Skipping..."
 		else
 			brew install $tool
