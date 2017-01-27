@@ -54,6 +54,6 @@ while true; do
 	TEMP="$(echo "$WEATHER" | jq .main.temp | cut -d . -f 1)°F"
 	ICON=$(weather_icon "$CATEGORY")
 
-	echo "  $ICON $TEMP" > ~/.cache/weather_status
+	printf "  $ICON $TEMP" > ~/.cache/weather_status
 	sleep 600
 done
