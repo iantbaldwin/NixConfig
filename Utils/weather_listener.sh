@@ -20,6 +20,13 @@
 API_KEY="f4ac6848cbd08a675b9820b94ee197eb"
 
 set -e
+clear_icon() {
+	if (( $1 < $2 || $3 < $1 )); then
+		echo ☾
+	else
+		echo ☀︎
+	fi
+}
 
 # Not all icons for weather symbols have been added yet. If the weather
 # category is not matched in this case statement, the command output will
@@ -30,9 +37,9 @@ weather_icon() {
   case $1 in
     500) echo ☔︎
      ;;
-    800) echo ☀︎
+    800) echo $(clear_icon $(date +%s) $2 $3)
       ;;
-    801) echo ☀︎
+    801) echo $(clear_icon $(date +%s) $2 $3)
       ;;
     803) echo ☁︎
       ;;
@@ -52,7 +59,9 @@ while true; do
 
 	CATEGORY=$(echo "$WEATHER" | jq .weather[0].id)
 	TEMP="$(echo "$WEATHER" | jq .main.temp | cut -d . -f 1)°F"
-	ICON=$(weather_icon "$CATEGORY")
+	SUNRISE=$(echo "$WEATHER" | jq .sys.sunrise)
+	SUNSET=$(echo "$WEATHER" | jq .sys.sunset)
+	ICON=$(weather_icon "$CATEGORY" $SUNRISE $SUNSET)
 
 	printf "  $TEMP $ICON" > ~/.cache/weather_status
 	sleep 600
