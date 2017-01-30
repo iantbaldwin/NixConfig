@@ -28,178 +28,107 @@ clear_icon() {
 	fi
 }
 
+day_or_night() {
+	if (( $1 >= $2 || $1 <= $3 )); then
+		echo 🌙
+	else
+		echo ☀️
+	fi
+}
+
 # Not all icons for weather symbols have been added yet. If the weather
 # category is not matched in this case statement, the command output will
 # include the category ID. You can add the appropriate emoji as you go along.
 #
 # Weather data reference: http://openweathermap.org/weather-conditions
-#weather_icon() {
-  #case $1 in
-    #500) echo ☔︎
-     #;;
-    #800) echo $(clear_icon $(date +%s) $2 $3)
-      #;;
-    #801) echo $(clear_icon $(date +%s) $2 $3)
-      #;;
-    #802) echo $(clear_icon $(date +%s) $2 $3)
-      #;;
-    #803) echo ☁︎
-      #;;
-    #804) echo ☁︎
-      #;;
-    #*) echo "$1"
-  #esac
-#}
 
 weather_icon() {
-	case $1 in
-	200) echo "thunderstorm with light rain"
-		;;
-	201) echo "thunderstorm with rain"
-		;;
-	202) echo "thunderstorm with heavy rain"
-		;;
-	210) echo "light thunderstorm"
-		;;
-	211) echo "thunderstorm"
-		;;
-	212) echo "heavy thunderstorm"
-		;;
-	221) echo "ragged thunderstorm"
-		;;
-	230) echo "thunderstorm with light drizzle"
-		;;
-	231) echo "thunderstorm with drizzle"
-		;;
-	232) echo "thunderstorm with heavy drizzle"
-		;;
-	300) echo "light intensity drizzle"
-		;;
-	301) echo "drizzle"
-		;;
-	302) echo "heavy intensity drizzle"
-		;;
-	310) echo "light intensity drizzle rain"
-		;;
-	311) echo "drizzle rain"
-		;;
-	312) echo "heavy intensity drizzle rain"
-		;;
-	313) echo "shower rain and drizzle"
-		;;
-	314) echo "heavy shower rain and drizzle"
-		;;
-	321) echo "shower drizzle"
-		;;
-	500) echo "light rain"
-		;;
-	501) echo "moderate rain"
-		;;
-	502) echo "heavy intensity rain"
-		;;
-	503) echo "very heavy rain"
-		;;
-	504) echo "extreme rain"
-		;;
-	511) echo "freezing rain"
-		;;
-	520) echo "light intensity shower rain"
-		;;
-	521) echo "shower rain"
-		;;
-	522) echo "heavy intensity shower rain"
-		;;
-	531) echo "ragged shower rain"
-		;;
-	600) echo "light snow"
-		;;
-	601) echo "snow"
-		;;
-	602) echo "heavy snow"
-		;;
-	611) echo "sleet"
-		;;
-	612) echo "shower sleet"
-		;;
-	615) echo "light rain and snow"
-		;;
-	616) echo "rain and snow"
-		;;
-	620) echo "light shower snow"
-		;;
-	621) echo "shower snow"
-		;;
-	622) echo "heavy shower snow"
-		;;
-	701) echo "mist"
-		;;
-	711) echo "smoke"
-		;;
-	721) echo "haze"
-		;;
-	731) echo "sand, dust whirls"
-		;;
-	741) echo "fog"
-		;;
-	751) echo "sand"
-		;;
-	761) echo "dust"
-		;;
-	762) echo "volcanic ash"
-		;;
-	771) echo "squalls"
-		;;
-	781) echo "tornado"
-		;;
-	800) echo "☀️"
-		;;
-	801) echo "few clouds"
-		;;
-	802) echo "scattered clouds"
-		;;
-	803) echo "broken clouds"
-		;;
-	804) echo "overcast clouds"
-		;;
-	900) echo "tornado"
-		;;
-	901) echo "tropical storm"
-		;;
-	902) echo "hurricane"
-		;;
-	903) echo "cold"
-		;;
-	904) echo "hot"
-		;;
-	905) echo "windy"
-		;;
-	906) echo "hail"
-		;;
-	951) echo "calm"
-		;;
-	952) echo "light breeze"
-		;;
-	953) echo "gentle breeze"
-		;;
-	954) echo "moderate breeze"
-		;;
-	955) echo "fresh breeze"
-		;;
-	956) echo "strong breeze"
-		;;
-	957) echo "high wind, near gale"
-		;;
-	958) echo "gale"
-		;;
-	959) echo "severe gale"
-		;;
-	960) echo "storm"
-		;;
-	961) echo "violent storm"
-		;;
-	962) echo "hurricane"
-		;;
-	esac
+	if (( 200 <= $1 && $1 < 300 )); then
+		echo ⛈
+	elif (( 300 <= $1 && $1 < 400 )); then
+		echo 🌦
+	elif (( 500 <= $1 && $1 < 600 )); then
+		echo 🌧
+	elif (( 600 <= $1 && $1 < 700 )); then
+		echo ❄️
+	elif (( 700 <= $1 && $1 < 800 )); then
+		case $1 in
+			701) echo "mist"
+				;;
+			711) echo "smoke"
+				;;
+			721) echo "haze"
+				;;
+			731) echo "sand, dust whirls"
+				;;
+			741) echo 🌫
+				;;
+			751) echo "sand"
+				;;
+			761) echo "dust"
+				;;
+			762) echo "volcanic ash"
+				;;
+			771) echo 💨
+				;;
+			781) echo 🌪
+				;;
+		esac
+	elif (( $1 == 800 )); then
+		echo $(day_or_night $(date +%s) $2 $3)
+	elif (( 800 < $1 && $1 < 900 )); then
+		case $1 in
+			801) echo 🌤
+				;;
+			802) echo ⛅️
+				;;
+			803) echo 🌥
+				;;
+			804) echo ☁️ 
+				;;
+		esac
+	elif (( 900 <= $1 && $1 < 1000)); then
+		case $1 in
+			900) echo 🌪
+				;;
+			901) echo 🌊
+				;;
+			902) echo 🌊
+				;;
+			903) echo 🌡
+				;;
+			904) echo 🌡
+				;;
+			905) echo 💨
+				;;
+			906) echo "hail"
+				;;
+			951) echo $(day_or_night $(date +%s) $2 $3)
+				;;
+			952) echo 💨
+				;;
+			953) echo 💨
+				;;
+			954) echo 💨
+				;;
+			955) echo 💨
+				;;
+			956) echo 💨
+				;;
+			957) echo 💨
+				;;
+			958) echo 💨
+				;;
+			959) echo 💨
+				;;
+			960) echo ⛈
+				;;
+			961) echo ⛈
+				;;
+			962) echo 🌊
+				;;
+		esac
+	fi
 }
 
 while true; do
