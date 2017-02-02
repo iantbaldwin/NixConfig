@@ -20,16 +20,9 @@
 API_KEY="f4ac6848cbd08a675b9820b94ee197eb"
 
 set -e
-clear_icon() {
-	if (( $1 < $2 || $3 < $1 )); then
-		echo ☾
-	else
-		echo ☀︎
-	fi
-}
 
 day_or_night() {
-	if (( $1 >= $2 || $1 <= $3 )); then
+	if (( $1 < $2 || $1 > $3 )); then
 		echo 🌙
 	else
 		echo ☀️
@@ -61,7 +54,7 @@ weather_icon() {
 				;;
 			731) echo "sand, dust whirls"
 				;;
-			741) echo 🌫
+			741) echo "fog"
 				;;
 			751) echo "sand"
 				;;
@@ -145,6 +138,6 @@ while true; do
 	SUNSET=$(echo "$WEATHER" | jq .sys.sunset)
 	ICON=$(weather_icon "$CATEGORY" $SUNRISE $SUNSET)
 
-	printf "  $TEMP $ICON" > ~/.cache/weather_status
+	printf "  $TEMP $ICON " > ~/.cache/weather_status
 	sleep 60
 done
