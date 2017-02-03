@@ -34,7 +34,6 @@ set shiftwidth=2
 set backspace=2
 
 set mouse=a
-set clipboard=unnamedplus
 
 " begin tagbar options
 let g:tagbar_compact = 1

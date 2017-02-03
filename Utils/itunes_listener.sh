@@ -1,21 +1,43 @@
-#! /bin/bash
+#!/bin/bash
+
+#check_and_run() {
+	#if ps -ef | grep '[i]Tunes$' > /dev/null; then
+		#osascript -e $1
+	#else
+		#echo ""
+	#fi
+#}
+
+check_and_run() {
+	if ps -ef | grep '[i]Tunes$' > /dev/null; then
+		track=$(osascript -e 'tell application "iTunes" to if player state is playing then name of current track' 2> /dev/null)
+		if ps -ef | grep '[i]Tunes$' > /dev/null; then
+			artist=$(osascript -e 'tell application "iTunes" to if player state is playing then artist of current track' 2> /dev/null)
+			if [[ ! -z "$track" && ! -z "$artist" ]]; then
+				printf "♫ %s  %s" "$artist" "$track"
+			else
+				printf ""
+			fi
+		else
+			printf ""
+		fi
+	else
+		printf ""
+	fi
+}
+
 #set -g status-left "#[fg=colour7,bg=colour6] #S #[fg=colour6,bg=colour0,nobold,nounderscore,noitalics]"
 while true; do
-	if pgrep iTunes > /dev/null; then
-		old_track=$(cat ~/.cache/itunes_track)
-		track=$(osascript -e 'tell application "iTunes" to if player state is playing then name of current track')
-		artist=$(osascript -e 'tell application "iTunes" to if player state is playing then artist of current track')
-		#track=$(echo $track | cut -c 1-17)
-		#artist=$(echo $artist | cut -c 1-17)
-		if [[ $track == "" ]]; then
-			echo	"##[fg=colour6,bg=colour0,nobold,nounderscore,noitalics]" > ~/.cache/itunes_track
-		else
-			printf "#[fg=colour6,bg=colour3,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] ♫ %s  %s #[fg=colour3,bg=colour0,nobold,nounderscore,noitalics]" "$artist" "$track" > ~/.cache/itunes_track
-		fi
-		if [[ $track != $old_track ]]; then
-			tmux refresh-client -S > /dev/null 2>&1
-		fi
-		continue
+	old_track=$(cat ~/.cache/itunes_track)
+	track=$(check_and_run "tell application \"iTunes\" to if player state is playing then name of current track")
+	artist=$(check_and_run "tell application \"iTunes\" to if player state is playing then artist of current track")
+	#track=$(check_and_run)
+	if [[ $track == "" ]]; then
+		echo	"##[fg=colour6,bg=colour0,nobold,nounderscore,noitalics]" > ~/.cache/itunes_track
+	else
+		printf "#[fg=colour6,bg=colour3,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] %s #[fg=colour3,bg=colour0,nobold,nounderscore,noitalics]" "$track" > ~/.cache/itunes_track
 	fi
-	echo "##[fg=colour6,bg=colour0,nobold,nounderscore,noitalics]" > ~/.cache/itunes_track
+	if [[ $track != $old_track ]]; then
+		tmux refresh-client -S > /dev/null 2>&1
+	fi
 done
