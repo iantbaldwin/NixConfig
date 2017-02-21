@@ -40,6 +40,8 @@ done
 # Link YCM_CONF
 ln -sF $curDir/Config/Vim/ycm_extra_conf.py $HOME/.vim/.ycm_extra_conf.py
 
+ln -sF $curDir/Config/SSH/config $HOME/.ssh/config
+
 # Link shell profile
 mkdir -p $curDir/Compiled
 if [ "$usrshell" == "fish" ]; then
@@ -86,7 +88,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	crontab $HOME/.brewupdate
 
 	# Install Software Tools
-	for tool in fish ctags cmake vim "tmux --with-utf8proc" reattach-to-user-namespace cloc docker docker-completion jq; do
+	for tool in fish ctags cmake vim "tmux --with-utf8proc" reattach-to-user-namespace cloc docker docker-completion jq bash procmail gpg monkeysphere; do
 		if brew list $tool >/dev/null 2>&1; then
 			echo "$tool already installed. Skipping..."
 		else

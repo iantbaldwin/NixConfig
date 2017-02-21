@@ -125,19 +125,21 @@ weather_icon() {
 }
 
 while true; do
-	LOCATION=$(curl --silent http://ip-api.com/csv)
-	CITY=$(echo "$LOCATION" | cut -d , -f 6)
-	LAT=$(echo "$LOCATION" | cut -d , -f 8)
-	LON=$(echo "$LOCATION" | cut -d , -f 9)
+	if [[ $ssh -eq "" ]]; then
+		LOCATION=$(curl --silent http://ip-api.com/csv)
+		CITY=$(echo "$LOCATION" | cut -d , -f 6)
+		LAT=$(echo "$LOCATION" | cut -d , -f 8)
+		LON=$(echo "$LOCATION" | cut -d , -f 9)
 
-	WEATHER=$(curl --silent http://api.openweathermap.org/data/2.5/weather\?lat="$LAT"\&lon="$LON"\&APPID="$API_KEY"\&units=imperial)
+		WEATHER=$(curl --silent http://api.openweathermap.org/data/2.5/weather\?lat="$LAT"\&lon="$LON"\&APPID="$API_KEY"\&units=imperial)
 
-	CATEGORY=$(echo "$WEATHER" | jq .weather[0].id)
-	TEMP="$(echo "$WEATHER" | jq .main.temp | cut -d . -f 1)°F"
-	SUNRISE=$(echo "$WEATHER" | jq .sys.sunrise)
-	SUNSET=$(echo "$WEATHER" | jq .sys.sunset)
-	ICON=$(weather_icon "$CATEGORY" $SUNRISE $SUNSET)
+		CATEGORY=$(echo "$WEATHER" | jq .weather[0].id)
+		TEMP="$(echo "$WEATHER" | jq .main.temp | cut -d . -f 1)°F"
+		SUNRISE=$(echo "$WEATHER" | jq .sys.sunrise)
+		SUNSET=$(echo "$WEATHER" | jq .sys.sunset)
+		ICON=$(weather_icon "$CATEGORY" $SUNRISE $SUNSET)
 
-	printf "  $TEMP $ICON " > ~/.cache/weather_status
-	sleep 60
+		printf "  $TEMP $ICON " > ~/.cache/weather_status
+		sleep 60
+	fi
 done
