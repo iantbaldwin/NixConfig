@@ -1,17 +1,9 @@
 #!/bin/bash
 
-#check_and_run() {
-	#if ps -ef | grep '[i]Tunes$' > /dev/null; then
-		#osascript -e $1
-	#else
-		#echo ""
-	#fi
-#}
-
 check_and_run() {
-	if ps -ef | grep '[i]Tunes[$| -]' > /dev/null; then
+if ps -ef | grep '[i]Tunes\|[i]Tunes ' | grep -v 'iTunesHelper' > /dev/null; then
 		track=$(osascript -e 'tell application "iTunes" to if player state is playing then name of current track')
-		if ps -ef | grep '[i]Tunes[$| -]' > /dev/null; then
+		if ps -ef | grep '[i]Tunes\|[i]Tunes ' | grep -v 'iTunesHelper' > /dev/null; then
 			artist=$(osascript -e 'tell application "iTunes" to if player state is playing then artist of current track')
 			if [[ ! -z "$track" && ! -z "$artist" ]]; then
 				printf "♫ %s  %s" "$artist" "$track"
