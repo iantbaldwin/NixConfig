@@ -1,4 +1,4 @@
-Host proxy.oscar.ncsu.edu
+Host cerberus.oscar.ncsu.edu
 	IdentityFile ~/.ssh/las
 
 Host oscar.las
@@ -12,24 +12,21 @@ Host github.ncsu.edu
 
 Host styx
 	User iantbaldwin
-	ProxyCommand ssh -q proxy.elektrikfish.com nc 10.0.1.100 22
+	ProxyCommand ssh -q cerberus nc 10.0.1.100 22
 
 Host zeus
 	User iantbaldwin
-	ProxyCommand ssh -q proxy.elektrikfish.com nc 10.0.1.101 22
+	ProxyCommand ssh -q cerberus nc 10.0.1.101 22
 
 Host muse
 	User iantbaldwin
-	ProxyCommand ssh -q proxy.elektrikfish.com nc 10.0.1.103 22
+	ProxyCommand ssh -q cerberus nc 10.0.1.103 22
 
 Host cerberus
-	User iantbaldwin
-	ProxyCommand ssh -q proxy.elektrikfish.com nc 10.0.1.104 22
-
-Host proxy.elektrikfish.com
+	Hostname cerberus.elektrikfish.com
 	User iantbaldwin
 	port 254
 	ProxyCommand monkeysphere ssh-proxycommand %h %p
 
 Host git.elektrikfish.com
-	ProxyCommand ssh -q proxy.elektrikfish.com nc 10.0.1.103 22
+	ProxyCommand ssh -q cerberus.elektrikfish.com nc 10.0.1.103 22
