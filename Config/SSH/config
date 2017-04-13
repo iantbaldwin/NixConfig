@@ -29,4 +29,4 @@ Host cerberus
 	ProxyCommand monkeysphere ssh-proxycommand %h %p
 
 Host git.elektrikfish.com
-	ProxyCommand ssh -q cerberus nc 10.0.1.104 10022
+	ProxyCommand ssh -q cerberus nc 10.0.1.102 10022
