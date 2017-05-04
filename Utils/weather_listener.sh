@@ -140,6 +140,6 @@ while true; do
 		ICON=$(weather_icon "$CATEGORY" $SUNRISE $SUNSET)
 
 		printf "  $TEMP $ICON " > ~/.cache/weather_status
-		sleep 60
+		sleep 300
 	fi
 done
