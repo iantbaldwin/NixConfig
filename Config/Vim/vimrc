@@ -6,9 +6,10 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
+"Plugin 'w0rp/ale'Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'itchyny/lightline.vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'vim-scripts/a.vim'
@@ -17,6 +18,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'dag/vim-fish'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'motus/pig.vim'
+Plugin 'davidhalter/jedi-vim'
 
 call vundle#end()
 
