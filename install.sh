@@ -44,6 +44,8 @@ ln -sF $curDir/Config/SSH/config $HOME/.ssh/config
 
 # Link shell profile
 mkdir -p $curDir/Compiled
+
+#### FISH ####
 if [ "$usrshell" == "fish" ]; then
 	rm -rf $HOME/.config/fish/config.fish
 	printf "#!$(which fish)\n
@@ -51,11 +53,13 @@ set remoteColor $remoteColor \n
 set localColor $localColor \n
 set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
 echo "export INSTPATH=$curDir" > $curDir/Constants/Fish/macOS/instpath.fish
-	cat $curDir/Config/Fish/fish.config >> $curDir/Compiled/config.fish
+	cat $curDir/Config/Fish/config.fish >> $curDir/Compiled/config.fish
 	ln -sF $curDir/Compiled/config.fish $HOME/.config/fish/config.fish
 	cat $curDir/Config/Tmux/Tmux.conf > $curDir/Compiled/tmux.conf
 	echo "source $curDir/tmuxline_solarized" >> $curDir/Compiled/tmux.conf
 	ln -sF $curDir/Compiled/tmux.conf ~/.tmux.conf
+
+#### BASH ####
 elif [ "$usrshell" == "bash" ]; then
 	printf "#!/bin/bash\n
 localColor=$localColor\n

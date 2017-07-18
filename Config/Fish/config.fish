@@ -15,9 +15,6 @@ switch ( uname -s )
 			source $INSTPATH/Constants/Fish/macOS/$SRC_FILE
 		end
 		
-		#sh $INSTPATH/Utils/kill_listeners.sh
-		#sh $INSTPATH/Utils/run_listeners.sh
-
 	case Linux
 		
 	case '*'
@@ -26,28 +23,59 @@ end
 
 set HOST (hostname | awk -F. '{ print $1 }')
 
-if [ $ssh = "" ]
+# Determine if an SSH session is active and set the colors
+# for the prompt accordingly
+if [ "$ssh" = "" ]
 	set PCOLOR $localColor
 	set FCOLOR white
+	set GITCOLOR magenta
 else
 	set FCOLOR black
 	set PCOLOR $remoteColor
 	set PSTMT "$USER@$HOST: "
 end
 
+function in_git
+	git -C "$dir" rev-parse --is-inside-working-tree >/dev/null ^/dev/null
+end
+
+# Set PS1 given the set of values
 function fish_prompt
 	set_color $FCOLOR -b $PCOLOR
 	printf " %s" $PSTMT
 	python $INSTPATH/Utils/dynamic_path.py
 	printf " "
-	set_color $PCOLOR -b normal
-	printf " "
-	set_color normal
+	if in_git
+		set_color $PCOLOR -b $GITCOLOR
+		printf ""
+		# Git icon
+		set_color $FCOLOR -b $GITCOLOR
+		if git status | grep 'Your branch is up-to-date with' > /dev/null
+			printf " \uE0A0 "
+		else
+			printf " \u2191 "
+		end
+		printf "%s \uE0B1 %s" (git rev-parse --abbrev-ref HEAD) (git rev-parse --short=8 HEAD)
+		if not git diff --quiet HEAD
+			printf "± "
+		else
+			printf " "
+		end
+		# Ending arrow
+		set_color $GITCOLOR -b normal
+		printf "\uE0B0 "
+		set_color normal	
+	else
+		set_color $PCOLOR -b normal
+		printf " "
+		set_color normal
+	end
 end
 set fish_greeting
 
-if [ $ssh = "" ]
-	if [  $TERM != "screen-256color" ]
+# This determines whether or not there is a tmux session active
+if [ "$ssh" = "" ]
+	if [ "$TMUX" = "" ]
 		if [ (tmux ls | grep -c $USER) = "1" ]
 			tmux a -t $USER
 		else
