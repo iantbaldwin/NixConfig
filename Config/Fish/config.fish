@@ -76,6 +76,7 @@ function fish_prompt
 
 end
 set fish_greeting
+ssh-id
 
 # This determines whether or not there is a tmux session active
 if [ "$ssh" = "" ]
