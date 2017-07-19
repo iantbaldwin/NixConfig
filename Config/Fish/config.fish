@@ -45,11 +45,15 @@ function fish_prompt
 	printf " %s" $PSTMT
 	python $INSTPATH/Utils/dynamic_path.py
 	printf " "
+	set_color $PCOLOR -b normal
+	printf ""
+	set_color normal
+
 	if in_git
-		set_color $PCOLOR -b $GITCOLOR
+		set_color black -b $GITCOLOR
 		printf ""
 		# Git icon
-		set_color $FCOLOR -b $GITCOLOR
+		set_color white -b $GITCOLOR
 		if git status | grep 'Your branch is up-to-date with' > /dev/null
 			printf " \uE0A0 "
 		else
@@ -65,11 +69,10 @@ function fish_prompt
 		set_color $GITCOLOR -b normal
 		printf "\uE0B0 "
 		set_color normal	
-	else
-		set_color $PCOLOR -b normal
-		printf " "
-		set_color normal
 	end
+
+	printf " "
+
 end
 set fish_greeting
 
