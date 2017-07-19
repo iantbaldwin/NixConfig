@@ -18,7 +18,7 @@ Host zeus
 	User iantbaldwin
 	ProxyCommand ssh -q cerberus nc 10.0.1.101 22
 
-Host muse
+Host pluto
 	User iantbaldwin
 	ProxyCommand ssh -q cerberus nc 10.0.1.103 22
 

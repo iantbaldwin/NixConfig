@@ -57,7 +57,7 @@ function fish_prompt
 		if git status | grep 'Your branch is up-to-date with' > /dev/null
 			printf " \uE0A0 "
 		else
-			printf " \u2191 "
+			printf " \u27A5	"
 		end
 		printf "%s \uE0B1 %s" (git rev-parse --abbrev-ref HEAD) (git rev-parse --short=8 HEAD)
 		if not git diff --quiet HEAD
