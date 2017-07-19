@@ -33,6 +33,7 @@ else
 	set FCOLOR black
 	set PCOLOR $remoteColor
 	set PSTMT "$USER@$HOST: "
+	set GITCOLOR blue
 end
 
 function in_git
