@@ -50,6 +50,7 @@ function fish_prompt
 	printf ""
 	set_color normal
 
+	# Check the status of git
 	if in_git
 		set_color black -b $GITCOLOR
 		printf ""
