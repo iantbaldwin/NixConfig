@@ -1,5 +1,5 @@
 # *Nix Configuration #
-## About ##
+![ian baldwin terminal][term-sc]
 This is my configuration for the terminals and software tools that I use most frequently.
 
 ## Fonts ##
@@ -35,4 +35,4 @@ Additional listeners can be added to `NixConfig/Utils/' using the supplied namin
 
 [fira-code]: https://github.com/tonsky/FiraCode (FiraCode on GitHub)
 [solarized-theme]: https://github.com/altercation/solarized (Solarized on GitHub)
-
+[term-sc]: https://cdn.iantbaldw.in/NixConfig/term.png
