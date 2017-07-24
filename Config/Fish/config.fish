@@ -42,14 +42,22 @@ end
 
 # Set PS1 given the set of values
 function fish_prompt
-	set_color $FCOLOR -b $PCOLOR
+	#set_color $FCOLOR -b $PCOLOR
+	set_color $PCOLOR
 	printf " %s" $PSTMT
 	python $INSTPATH/Utils/dynamic_path.py
 	printf " "
-	set_color $PCOLOR -b normal
-	printf ""
+	set_color blue
+	printf "\uE0B1"
+	set_color green
+	printf "\uE0B1"
+	set_color magenta
+	printf "\uE0B1 "
 	set_color normal
+end
 
+
+function fish_right_prompt
 	# Check the status of git
 	if in_git
 		set_color black -b $GITCOLOR
@@ -72,10 +80,8 @@ function fish_prompt
 		printf "\uE0B0 "
 		set_color normal	
 	end
-
-	printf " "
-
 end
+
 set fish_greeting
 ssh-id
 
