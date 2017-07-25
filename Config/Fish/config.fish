@@ -41,6 +41,7 @@ function fish_prompt
 	#set_color $FCOLOR -b $PCOLOR
 	set_color $PCOLOR
 	printf " %s" $PSTMT
+	set_color cyan
 	python $INSTPATH/Utils/dynamic_path.py
 	printf " "
 	set_color blue
