@@ -1,1 +1,1 @@
-export INSTPATH=/Users/iantbaldwin/.NixConfig
+export INSTPATH=/home/iantbaldwin/.NixConfig

@@ -70,13 +70,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
 		fi
 	done
 
-	#### FISHER #####
-	if [ "$usrshell" == "fish" ] && [ ! -e $HOME/.config/fish/functions/fisher.fish ]; then
-		curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
-		fish -c 'soruce ~/.config/fish/functions/fisher.fish; and fisher git_util'
-	else
-		echo "Fisher already installed. Skipping..."
-	fi
 
 	# Setup vim
 	if [ -e $HOME/.vim/bundle/Vundle.vim ]; then
@@ -139,5 +132,12 @@ NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
 	fi
 fi
 
+#### FISHER #####
+if [ "$usrshell" == "fish" ] && [ ! -e $HOME/.config/fish/functions/fisher.fish ]; then
+	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+	fish -c 'soruce ~/.config/fish/functions/fisher.fish; and fisher git_util'
+else
+	echo "Fisher already installed. Skipping..."
+fi
 
 
