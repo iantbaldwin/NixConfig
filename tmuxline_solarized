@@ -1,14 +1,14 @@
 # This tmux statusbar config was created by tmuxline.vim
 # on Wed, 25 Jan 2017
 
-set -g status-bg "colour0"
+set -g status-bg $BG_COLOR
 set -g message-command-fg "colour253"
 set -g status-justify "left"
-set -g status-left-length "100"
+set -g status-left-length "110"
 set -g status "on"
 set -g pane-active-border-fg "colour253"
 set -g message-bg "colour11"
-set -g status-right-length "100"
+set -g status-right-length "110"
 set -g status-right-attr "none"
 set -g message-fg "colour253"
 set -g message-command-bg "colour253"
@@ -17,12 +17,12 @@ set -g pane-border-fg "colour11"
 set -g status-left-attr "none"
 setw -g window-status-fg "colour14"
 setw -g window-status-attr "none"
-setw -g window-status-activity-bg "colour0"
+setw -g window-status-activity-bg $BG_COLOR
 setw -g window-status-activity-attr "none"
 setw -g window-status-activity-fg "colour4"
 setw -g window-status-separator ""
-setw -g window-status-bg "colour0"
-set -g status-left "#[fg=colour6,bg=colour0] #S #[fg=colour7,bg=colour0,nobold,nounderscore,noitalics]$STATUS_SEP#(cat ~/.cache/itunes_track)"
-set -g status-right "#[fg=colour5,bg=colour0,nobold,nounderscore,noitalics] #(cat ~/.cache/cpu_usage) #(cat ~/.cache/memory_status)#(cat ~/.cache/battery_status) #[fg=colour7,bg=colour0,nobold,nounderscore,noitalics]$STATUS_SEP #(cat ~/.cache/priv_ip) #[fg=colour7,bg=colour0,nobold,nounderscore,noitalics]$STATUS_SEP#[fg=colour2,bg=colour0] %Y-%m-%d %I:%M %p #[fg=colour7,bg=colour0,nobold,nounderscore,noitalics]$STATUS_SEP#[fg=colour1,bg=colour0] #h "
-setw -g window-status-format "#[fg=colour14,bg=colour0] #I:#[fg=colour14,bg=colour0] #W "
-setw -g window-status-current-format "#[fg=colour7,bg=colour0] #I:#[fg=colour4,bg=colour0] #W "
+setw -g window-status-bg $BG_COLOR
+set -g status-left "#[fg=colour6,bg=$BG_COLOR] #S #[fg=colour7,bg=default,nobold,nounderscore,noitalics]$STATUS_SEP#(cat ~/.cache/itunes_track)"
+set -g status-right "#[fg=colour5,bg=$BG_COLOR,nobold,nounderscore,noitalics] #(cat ~/.cache/cpu_usage) #(cat ~/.cache/memory_status)#(cat ~/.cache/battery_status) #[fg=colour7,bg=default,nobold,nounderscore,noitalics]$STATUS_SEP #(cat ~/.cache/priv_ip) #[fg=colour7,bg=default,nobold,nounderscore,noitalics]$STATUS_SEP#[fg=colour2,bg=default] %Y-%m-%d %I:%M %p #[fg=colour7,bg=default,nobold,nounderscore,noitalics]$STATUS_SEP#[fg=colour1,bg=default] #h "
+setw -g window-status-format "#[fg=colour7,bg=$BG_COLOR] #I:#[fg=colour13,bg=default] #W "
+setw -g window-status-current-format "#[fg=colour7,bg=$BG_COLOR] #I:#[fg=colour4,bg=default] #W "

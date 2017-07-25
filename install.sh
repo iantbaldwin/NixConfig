@@ -139,5 +139,3 @@ if [ "$usrshell" == "fish" ] && [ ! -e $HOME/.config/fish/functions/fisher.fish 
 else
 	echo "Fisher already installed. Skipping..."
 fi
-
-
