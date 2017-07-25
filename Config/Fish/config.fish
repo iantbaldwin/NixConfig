@@ -41,14 +41,14 @@ function fish_prompt
 	#set_color $FCOLOR -b $PCOLOR
 	set_color $PCOLOR
 	printf "%s " $PSTMT
-	set_color blue
+	set_color cyan
 	python $INSTPATH/Utils/dynamic_path.py
 	printf " "
-	set_color blue
-	printf "\uE0B1"
-	set_color green
-	printf "\uE0B1"
-	set_color magenta
+	#set_color blue
+	#printf "\uE0B1"
+	#set_color green
+	#printf "\uE0B1"
+	set_color red
 	printf "\uE0B1 "
 	set_color normal
 end
