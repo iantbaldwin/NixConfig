@@ -10,7 +10,7 @@ if ps -ef | grep '[i]Tunes\|[i]Tunes ' | grep -v 'iTunesHelper' | grep -v 'com.a
 				if [[ $width -lt 200 ]]; then
 					printf "♫ %s" "$track"
 				else
-					printf "♫ %s  %s" "$artist" "$track"
+					printf "♫ %s - %s" "$artist" "$track"
 				fi
 			else
 				printf ""
@@ -30,9 +30,12 @@ while true; do
 	artist=$(check_and_run "tell application \"iTunes\" to if player state is playing then artist of current track")
 	#track=$(check_and_run)
 	if [[ $track == "" ]]; then
-		echo	"##[fg=colour6,bg=colour0,nobold,nounderscore,noitalics]" > ~/.cache/itunes_track
+		#echo	"##[fg=colour6,bg=colour0,nobold,nounderscore,noitalics]" > ~/.cache/itunes_track
+		#echo	"#[fg=colour7,bg=colour0,nobold,nounderscore,noitalics]● " > ~/.cache/itunes_track
+		echo "" > ~/.cache/itunes_track
 	else
-		printf "#[fg=colour6,bg=colour3,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] %s #[fg=colour3,bg=colour0,nobold,nounderscore,noitalics]" "$track" > ~/.cache/itunes_track
+		#printf "#[fg=colour6,bg=colour3,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] %s #[fg=colour3,bg=colour0,nobold,nounderscore,noitalics]" "$track" > ~/.cache/itunes_track
+		printf "#[fg=colour2,bg=colour0,nobold,nounderscore,noitalics] %s #[fg=colour7,bg=colour0,nobold,nounderscore,noitalics]$STATUS_SEP" "$track" > ~/.cache/itunes_track
 	fi
 	if [[ $track != $old_track ]]; then
 		tmux refresh-client -S > /dev/null 2>&1

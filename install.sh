@@ -47,6 +47,7 @@ mkdir -p $curDir/Compiled
 
 # Install Mac OS Software
 if [ "$(uname -s)" == "Darwin" ]; then
+	export SEP="●"
 	echo Installing for macOS
 	# Install Brew
 	if command -v brew >/dev/null 2>&1; then
