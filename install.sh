@@ -45,37 +45,6 @@ ln -sF $curDir/Config/SSH/config $HOME/.ssh/config
 # Link shell profile
 mkdir -p $curDir/Compiled
 
-#### FISH ####
-if [ "$usrshell" == "fish" ]; then
-	rm -rf $HOME/.config/fish/config.fish
-	printf "#!$(which fish)\n
-set remoteColor $remoteColor \n
-set localColor $localColor \n
-set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
-echo "export INSTPATH=$curDir" > $curDir/Constants/Fish/macOS/instpath.fish
-	cat $curDir/Config/Fish/config.fish >> $curDir/Compiled/config.fish
-	ln -sF $curDir/Compiled/config.fish $HOME/.config/fish/config.fish
-	cat $curDir/Config/Tmux/Tmux.conf > $curDir/Compiled/tmux.conf
-	echo "source $curDir/tmuxline_solarized" >> $curDir/Compiled/tmux.conf
-	ln -sF $curDir/Compiled/tmux.conf ~/.tmux.conf
-
-#### BASH ####
-elif [ "$usrshell" == "bash" ]; then
-	printf "#!/bin/bash\n
-localColor=$localColor\n
-remoteColor=$remoteColor\n
-NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
-	cat $curDir/Config/Bash/bash.config >> $curDir/Compiled/bash_profile
-	ncsu=$(uname -a | grep -c ncsu)
-	if [ "$ncsu" == "1" ]; then
-		rm -rf $HOME/.mybashrc
-		ln -sF $curDir/Compiled/bash_profile $HOME/.mybashrc
-	else
-		rm -rf $HOME/.bash_profile
-		ln -sF $curDir/Compiled/bash_profile $HOME/.bash_profile
-	fi
-fi
-
 # Install Mac OS Software
 if [ "$(uname -s)" == "Darwin" ]; then
 	echo Installing for macOS
@@ -99,6 +68,14 @@ if [ "$(uname -s)" == "Darwin" ]; then
 			brew install $tool
 		fi
 	done
+
+	#### FISHER #####
+	if [ "$usrshell" == "fish" ] && [ ! -e $HOME/.config/fish/functions/fisher.fish ]; then
+		curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+		fish -c 'soruce ~/.config/fish/functions/fisher.fish; and fisher git_util'
+	else
+		echo "Fisher already installed. Skipping..."
+	fi
 
 	# Setup vim
 	if [ -e $HOME/.vim/bundle/Vundle.vim ]; then
@@ -129,3 +106,37 @@ if [ "$(uname -s)" == "Darwin" ]; then
 		chmod +x /usr/local/bin/kill_listeners
 	fi
 fi
+
+#### FISH ####
+if [ "$usrshell" == "fish" ]; then
+	rm -rf $HOME/.config/fish/config.fish
+	printf "#!$(which fish)\n
+set remoteColor $remoteColor \n
+set localColor $localColor \n
+set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
+	echo "export INSTPATH=$curDir" > $curDir/Constants/Fish/macOS/instpath.fish
+	cat $curDir/Config/Fish/config.fish >> $curDir/Compiled/config.fish
+	ln -sF $curDir/Compiled/config.fish $HOME/.config/fish/config.fish
+	cat $curDir/Config/Tmux/Tmux.conf > $curDir/Compiled/tmux.conf
+	echo "source $curDir/tmuxline_solarized" >> $curDir/Compiled/tmux.conf
+	ln -sF $curDir/Compiled/tmux.conf ~/.tmux.conf
+
+#### BASH ####
+elif [ "$usrshell" == "bash" ]; then
+	printf "#!/bin/bash\n
+localColor=$localColor\n
+remoteColor=$remoteColor\n
+NIXCONFIG=$curDir \n" > $curDir/Compiled/bash_profile
+	cat $curDir/Config/Bash/bash.config >> $curDir/Compiled/bash_profile
+	ncsu=$(uname -a | grep -c ncsu)
+	if [ "$ncsu" == "1" ]; then
+		rm -rf $HOME/.mybashrc
+		ln -sF $curDir/Compiled/bash_profile $HOME/.mybashrc
+	else
+		rm -rf $HOME/.bash_profile
+		ln -sF $curDir/Compiled/bash_profile $HOME/.bash_profile
+	fi
+fi
+
+
+
