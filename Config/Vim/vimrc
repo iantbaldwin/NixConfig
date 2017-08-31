@@ -6,9 +6,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
-"Plugin 'w0rp/ale'Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 Plugin 'w0rp/ale'
 Plugin 'itchyny/lightline.vim'
 Plugin 'edkolev/tmuxline.vim'
@@ -19,6 +19,8 @@ Plugin 'dag/vim-fish'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'motus/pig.vim'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'fatih/vim-go'
+Plugin 'scrooloose/nerdtree'
 
 call vundle#end()
 
@@ -39,6 +41,7 @@ set clipboard=unnamed
 nnoremap d "_d
 vnoremap d "_d
 set mouse=a
+autocmd vimenter * NERDTree
 
 " begin tagbar options
 let g:tagbar_compact = 1
