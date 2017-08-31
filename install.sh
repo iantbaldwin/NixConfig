@@ -61,6 +61,12 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	ln -sF $curDir/Compiled/brewupdate $HOME/.brewupdate
 	crontab $HOME/.brewupdate
 
+	# Setup development environment
+	mkdir -p $HOME/Development
+	mkdir -p $HOME/Development/golang/bin
+	mkdir -p $HOME/Development/golang/packages
+	mkdir -p $HOME/Development/golang/src/git.elektrikfish.com/iantbaldwin/
+
 	# Install Software Tools
 	for tool in fish ctags cmake vim "tmux --with-utf8proc" reattach-to-user-namespace cloc docker docker-completion jq bash procmail gpg monkeysphere; do
 		if brew list $tool >/dev/null 2>&1; then
@@ -110,6 +116,8 @@ set localColor $localColor \n
 set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
 	echo "export INSTPATH=$curDir" > $curDir/Constants/Fish/macOS/instpath.fish
 	cat $curDir/Config/Fish/config.fish >> $curDir/Compiled/config.fish
+	echo 'set -gx PATH $PATH $HOME/Development/golang/bin' >> $curDir/Compiled/config.fish
+	echo 'set -gx GOPATH $HOME/Development/golang' >> $curDir/Compiled/config.fish
 	ln -sF $curDir/Compiled/config.fish $HOME/.config/fish/config.fish
 	cat $curDir/Config/Tmux/Tmux.conf > $curDir/Compiled/tmux.conf
 	echo "source $curDir/tmuxline_solarized" >> $curDir/Compiled/tmux.conf
