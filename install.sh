@@ -44,6 +44,7 @@ ln -sF $curDir/Config/SSH/config $HOME/.ssh/config
 
 # Link shell profile
 mkdir -p $curDir/Compiled
+mkdir -p $HOME/.bin
 
 # Install Mac OS Software
 if [ "$(uname -s)" == "Darwin" ]; then
@@ -68,7 +69,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	mkdir -p $HOME/Development/golang/src/git.elektrikfish.com/iantbaldwin/
 
 	# Install Software Tools
-	for tool in fish ctags cmake vim "tmux --with-utf8proc" reattach-to-user-namespace cloc docker docker-completion jq bash procmail gpg monkeysphere; do
+	for tool in fish ctags cmake vim "tmux --with-utf8proc" reattach-to-user-namespace cloc docker docker-completion jq bash procmail gpg monkeysphere go; do
 		if brew list $tool >/dev/null 2>&1; then
 			echo "$tool already installed. Skipping..."
 		else
@@ -116,7 +117,7 @@ set localColor $localColor \n
 set INSTPATH $curDir \n" > $curDir/Compiled/config.fish
 	echo "export INSTPATH=$curDir" > $curDir/Constants/Fish/macOS/instpath.fish
 	cat $curDir/Config/Fish/config.fish >> $curDir/Compiled/config.fish
-	echo 'set -gx PATH $PATH $HOME/Development/golang/bin' >> $curDir/Compiled/config.fish
+	echo 'set -gx PATH $PATH $HOME/Development/golang/bin $HOME/.bin' >> $curDir/Compiled/config.fish
 	echo 'set -gx GOPATH $HOME/Development/golang' >> $curDir/Compiled/config.fish
 	ln -sF $curDir/Compiled/config.fish $HOME/.config/fish/config.fish
 	cat $curDir/Config/Tmux/Tmux.conf > $curDir/Compiled/tmux.conf
